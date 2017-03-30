@@ -90,6 +90,9 @@ void Process::ParseKernelCaps(const u32* kernel_caps, size_t len) {
             mapping.size = Memory::PAGE_SIZE;
             mapping.writable = true; // TODO: Not sure if correct
             mapping.unk_flag = false;
+
+            // Missing line??
+            address_mappings.push_back(mapping);
         } else if ((type & 0xFE0) == 0xFC0) { // 0x01FF
             // Kernel version
             kernel_version = descriptor & 0xFFFF;

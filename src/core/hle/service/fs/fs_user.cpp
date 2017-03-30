@@ -304,7 +304,7 @@ static void CreateFile(Service::Interface* self) {
 
     FileSys::Path file_path(filename_type, filename_size, filename_ptr);
 
-    LOG_DEBUG(Service_FS, "type=%u size=%llu data=%s", static_cast<u32>(filename_type), file_size,
+    LOG_DEBUG(Service_FS, "type=%u size=%lu data=%s", static_cast<u32>(filename_type), file_size,
               file_path.DebugStr().c_str());
 
     cmd_buff[1] = CreateFileInArchive(archive_handle, file_path, file_size).raw;

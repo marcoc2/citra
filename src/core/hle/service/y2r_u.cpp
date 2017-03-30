@@ -89,7 +89,7 @@ static void SetInputFormat(Interface* self) {
     cmd_buff[0] = IPC::MakeHeader(0x1, 1, 0);
     cmd_buff[1] = RESULT_SUCCESS.raw;
 
-    LOG_DEBUG(Service_Y2R, "called input_format=%hhu", conversion.input_format);
+    LOG_DEBUG(Service_Y2R, "called input_format=%hhu", static_cast<int>(conversion.input_format));
 }
 
 static void GetInputFormat(Interface* self) {
@@ -99,7 +99,7 @@ static void GetInputFormat(Interface* self) {
     cmd_buff[1] = RESULT_SUCCESS.raw;
     cmd_buff[2] = static_cast<u32>(conversion.input_format);
 
-    LOG_DEBUG(Service_Y2R, "called input_format=%hhu", conversion.input_format);
+    LOG_DEBUG(Service_Y2R, "called input_format=%hhu", static_cast<int>(conversion.input_format));
 }
 
 static void SetOutputFormat(Interface* self) {
@@ -110,7 +110,8 @@ static void SetOutputFormat(Interface* self) {
     cmd_buff[0] = IPC::MakeHeader(0x3, 1, 0);
     cmd_buff[1] = RESULT_SUCCESS.raw;
 
-    LOG_DEBUG(Service_Y2R, "called output_format=%hhu", conversion.output_format);
+    LOG_DEBUG(Service_Y2R, "called output_format=%hhu",
+              static_cast<int>(conversion.output_format));
 }
 
 static void GetOutputFormat(Interface* self) {
@@ -120,7 +121,8 @@ static void GetOutputFormat(Interface* self) {
     cmd_buff[1] = RESULT_SUCCESS.raw;
     cmd_buff[2] = static_cast<u32>(conversion.output_format);
 
-    LOG_DEBUG(Service_Y2R, "called output_format=%hhu", conversion.output_format);
+    LOG_DEBUG(Service_Y2R, "called output_format=%hhu",
+              static_cast<int>(conversion.output_format));
 }
 
 static void SetRotation(Interface* self) {
@@ -131,7 +133,7 @@ static void SetRotation(Interface* self) {
     cmd_buff[0] = IPC::MakeHeader(0x5, 1, 0);
     cmd_buff[1] = RESULT_SUCCESS.raw;
 
-    LOG_DEBUG(Service_Y2R, "called rotation=%hhu", conversion.rotation);
+    LOG_DEBUG(Service_Y2R, "called rotation=%hhu", static_cast<int>(conversion.rotation));
 }
 
 static void GetRotation(Interface* self) {
@@ -141,7 +143,7 @@ static void GetRotation(Interface* self) {
     cmd_buff[1] = RESULT_SUCCESS.raw;
     cmd_buff[2] = static_cast<u32>(conversion.rotation);
 
-    LOG_DEBUG(Service_Y2R, "called rotation=%hhu", conversion.rotation);
+    LOG_DEBUG(Service_Y2R, "called rotation=%hhu", static_cast<int>(conversion.rotation));
 }
 
 static void SetBlockAlignment(Interface* self) {
@@ -152,7 +154,8 @@ static void SetBlockAlignment(Interface* self) {
     cmd_buff[0] = IPC::MakeHeader(0x7, 1, 0);
     cmd_buff[1] = RESULT_SUCCESS.raw;
 
-    LOG_DEBUG(Service_Y2R, "called block_alignment=%hhu", conversion.block_alignment);
+    LOG_DEBUG(Service_Y2R, "called block_alignment=%hhu",
+              static_cast<int>(conversion.block_alignment));
 }
 
 static void GetBlockAlignment(Interface* self) {
@@ -162,7 +165,8 @@ static void GetBlockAlignment(Interface* self) {
     cmd_buff[1] = RESULT_SUCCESS.raw;
     cmd_buff[2] = static_cast<u32>(conversion.block_alignment);
 
-    LOG_DEBUG(Service_Y2R, "called block_alignment=%hhu", conversion.block_alignment);
+    LOG_DEBUG(Service_Y2R, "called block_alignment=%hhu",
+              static_cast<int>(conversion.block_alignment));
 }
 
 /**
@@ -664,8 +668,10 @@ cleanup:
         Service_Y2R,
         "called input_format=%hhu output_format=%hhu rotation=%hhu block_alignment=%hhu "
         "input_line_width=%hu input_lines=%hu standard_coefficient=%hhu reserved=%hhu alpha=%hX",
-        params->input_format, params->output_format, params->rotation, params->block_alignment,
-        params->input_line_width, params->input_lines, params->standard_coefficient,
+        static_cast<int>(params->input_format), static_cast<int>(params->output_format),
+        static_cast<int>(params->rotation), static_cast<int>(params->block_alignment),
+        params->input_line_width, params->input_lines,
+        static_cast<int>(params->standard_coefficient),
         params->padding, params->alpha);
 }
 

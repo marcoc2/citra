@@ -353,12 +353,12 @@ void PrepareToStartLibraryApplet(Service::Interface* self) {
     AppletId applet_id = static_cast<AppletId>(cmd_buff[1]);
     auto applet = HLE::Applets::Applet::Get(applet_id);
     if (applet) {
-        LOG_WARNING(Service_APT, "applet has already been started id=%08X", applet_id);
+        LOG_WARNING(Service_APT, "applet has already been started id=%08X", static_cast<u32>(applet_id));
         cmd_buff[1] = RESULT_SUCCESS.raw;
     } else {
         cmd_buff[1] = HLE::Applets::Applet::Create(applet_id).raw;
     }
-    LOG_DEBUG(Service_APT, "called applet_id=%08X", applet_id);
+    LOG_DEBUG(Service_APT, "called applet_id=%08X", static_cast<u32>(applet_id));
 }
 
 void PreloadLibraryApplet(Service::Interface* self) {
@@ -366,12 +366,13 @@ void PreloadLibraryApplet(Service::Interface* self) {
     AppletId applet_id = static_cast<AppletId>(cmd_buff[1]);
     auto applet = HLE::Applets::Applet::Get(applet_id);
     if (applet) {
-        LOG_WARNING(Service_APT, "applet has already been started id=%08X", applet_id);
+        LOG_WARNING(Service_APT, "applet has already been started id=%08X",
+                    static_cast<u32>(applet_id));
         cmd_buff[1] = RESULT_SUCCESS.raw;
     } else {
         cmd_buff[1] = HLE::Applets::Applet::Create(applet_id).raw;
     }
-    LOG_DEBUG(Service_APT, "called applet_id=%08X", applet_id);
+    LOG_DEBUG(Service_APT, "called applet_id=%08X", static_cast<u32>(applet_id));
 }
 
 void StartLibraryApplet(Service::Interface* self) {
@@ -379,10 +380,10 @@ void StartLibraryApplet(Service::Interface* self) {
     AppletId applet_id = static_cast<AppletId>(cmd_buff[1]);
     std::shared_ptr<HLE::Applets::Applet> applet = HLE::Applets::Applet::Get(applet_id);
 
-    LOG_DEBUG(Service_APT, "called applet_id=%08X", applet_id);
+    LOG_DEBUG(Service_APT, "called applet_id=%08X", static_cast<u32>(applet_id));
 
     if (applet == nullptr) {
-        LOG_ERROR(Service_APT, "unknown applet id=%08X", applet_id);
+        LOG_ERROR(Service_APT, "unknown applet id=%08X", static_cast<u32>(applet_id));
         cmd_buff[1] = -1; // TODO(Subv): Find the right error code
         return;
     }
@@ -415,7 +416,7 @@ void SetScreenCapPostPermission(Service::Interface* self) {
     cmd_buff[0] = IPC::MakeHeader(0x55, 1, 0);
     cmd_buff[1] = RESULT_SUCCESS.raw;
     LOG_WARNING(Service_APT, "(STUBBED) screen_capture_post_permission=%u",
-                screen_capture_post_permission);
+                static_cast<u32>(screen_capture_post_permission));
 }
 
 void GetScreenCapPostPermission(Service::Interface* self) {
@@ -425,7 +426,7 @@ void GetScreenCapPostPermission(Service::Interface* self) {
     cmd_buff[1] = RESULT_SUCCESS.raw;
     cmd_buff[2] = static_cast<u32>(screen_capture_post_permission);
     LOG_WARNING(Service_APT, "(STUBBED) screen_capture_post_permission=%u",
-                screen_capture_post_permission);
+                static_cast<u32>(screen_capture_post_permission));
 }
 
 void GetAppletInfo(Service::Interface* self) {
@@ -444,7 +445,7 @@ void GetAppletInfo(Service::Interface* self) {
                                  ErrorSummary::NotFound, ErrorLevel::Status)
                           .raw;
     }
-    LOG_WARNING(Service_APT, "(stubbed) called appid=%u", app_id);
+    LOG_WARNING(Service_APT, "(stubbed) called appid=%u", static_cast<int>(app_id));
 }
 
 void GetStartupArgument(Service::Interface* self) {
@@ -466,7 +467,7 @@ void GetStartupArgument(Service::Interface* self) {
     }
 
     LOG_WARNING(Service_APT, "(stubbed) called startup_argument_type=%u , parameter_size=0x%08x",
-                startup_argument_type, parameter_size);
+                static_cast<u32>(startup_argument_type), parameter_size);
 
     cmd_buff[1] = RESULT_SUCCESS.raw;
     cmd_buff[2] = 0;

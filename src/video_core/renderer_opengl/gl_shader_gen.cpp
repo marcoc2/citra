@@ -83,7 +83,7 @@ static void AppendSource(std::string& out, const PicaShaderConfig& config,
         break;
     default:
         out += "vec4(0.0)";
-        LOG_CRITICAL(Render_OpenGL, "Unknown source op %u", source);
+        LOG_CRITICAL(Render_OpenGL, "Unknown source op %u", static_cast<int>(source));
         break;
     }
 }
@@ -141,7 +141,7 @@ static void AppendColorModifier(std::string& out, const PicaShaderConfig& config
         break;
     default:
         out += "vec3(0.0)";
-        LOG_CRITICAL(Render_OpenGL, "Unknown color modifier op %u", modifier);
+        LOG_CRITICAL(Render_OpenGL, "Unknown color modifier op %u", static_cast<int>(modifier));
         break;
     }
 }
@@ -190,7 +190,7 @@ static void AppendAlphaModifier(std::string& out, const PicaShaderConfig& config
         break;
     default:
         out += "0.0";
-        LOG_CRITICAL(Render_OpenGL, "Unknown alpha modifier op %u", modifier);
+        LOG_CRITICAL(Render_OpenGL, "Unknown alpha modifier op %u", static_cast<int>(modifier));
         break;
     }
 }
@@ -235,7 +235,8 @@ static void AppendColorCombiner(std::string& out, TevStageConfig::Operation oper
         break;
     default:
         out += "vec3(0.0)";
-        LOG_CRITICAL(Render_OpenGL, "Unknown color combiner operation: %u", operation);
+        LOG_CRITICAL(Render_OpenGL, "Unknown color combiner operation: %u",
+                     static_cast<int>(operation));
         break;
     }
     out += ", vec3(0.0), vec3(1.0))"; // Clamp result to 0.0, 1.0
@@ -275,7 +276,8 @@ static void AppendAlphaCombiner(std::string& out, TevStageConfig::Operation oper
         break;
     default:
         out += "0.0";
-        LOG_CRITICAL(Render_OpenGL, "Unknown alpha combiner operation: %u", operation);
+        LOG_CRITICAL(Render_OpenGL, "Unknown alpha combiner operation: %u",
+                     static_cast<int>(operation));
         break;
     }
     out += ", 0.0, 1.0)";
@@ -305,7 +307,7 @@ static void AppendAlphaTestCondition(std::string& out, FramebufferRegs::CompareF
 
     default:
         out += "false";
-        LOG_CRITICAL(Render_OpenGL, "Unknown alpha test condition %u", func);
+        LOG_CRITICAL(Render_OpenGL, "Unknown alpha test condition %u", static_cast<int>(func));
         break;
     }
 }

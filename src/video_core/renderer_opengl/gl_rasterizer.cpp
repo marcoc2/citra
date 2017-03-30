@@ -1125,7 +1125,8 @@ void RasterizerOpenGL::SyncCullMode() {
         break;
 
     default:
-        LOG_CRITICAL(Render_OpenGL, "Unknown cull mode %d", regs.rasterizer.cull_mode.Value());
+        LOG_CRITICAL(Render_OpenGL, "Unknown cull mode %d",
+                     static_cast<int>(regs.rasterizer.cull_mode.Value()));
         UNIMPLEMENTED();
         break;
     }
